@@ -51,6 +51,8 @@ void swap(int* A, int a, int b){
 int main(int argc, char *argv[])
 {
     int* A=new int[SIZE];
+
+    srand(time(NULL));
     
     for(int i=0;i<SIZE;i++){
         A[i]=rand()%100;
