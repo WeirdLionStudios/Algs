@@ -1,7 +1,7 @@
 Algs
 ====
 
-Implementazioni "ufficiali" degli algoritmi fatti nel corso, principalmente in c++ ma anche java.
+Implementazioni "ufficiali" degli algoritmi fatti nel corso, principalmente in c++ e java.
 
 Authors:
 
