@@ -1,70 +1,71 @@
+/**
+ * Author: Trek3
+ * /
+
 #include <cstdlib>
 #include <iostream>
 
 using namespace std;
 
-const int SIZE=25;
+#define DIM 8
+#define MAX 100
 
-int partition(int* A, int left, int right, int index) {
-  int pivotValue = A[index];
-  int storedIndex = left;
-  int tmp;
-
-  tmp = A[index];
-  A[index] = A[right];
-  A[right] = tmp;
-
-  for (int i = left; i < right; i++) {
-    if (A[i] <= pivotValue) {
-      tmp = A[i];
-      A[i] = A[storedIndex];
-      A[storedIndex] = tmp;
-
-      storedIndex++;
-    }
-  }
-  tmp = A[storedIndex];
-  A[storedIndex] = A[right];
-  A[right] = tmp;
-
-  return storedIndex;
-}
-int quicksort(int* A, int left, int right, int pivot) {
-  //int pivot = 0;
-
-  if (left < right) {
-    pivot = partition(A, left, right, pivot);
-
-    quicksort(A, left, pivot - 1, left);
-    quicksort(A, pivot + 1, right, pivot + 1);
-
-  }
-  return 0;
+void carica(int a[], int dim){
+    for(int i=0;i<dim;i++){
+            a[i]=rand()%MAX;
+    }    
 }
 
-void swap(int* A, int a, int b){
+void print(int a[], int dim){
+    for(int i=0;i<dim;i++){
+            cout<<a[i]<<"\t";
+    }    
+    cout<<endl;
+}
+
+void swap(int A[], int a, int b){
     int temp=A[a];
     A[a]=A[b];
     A[b]=temp;
 }
 
-int main(int argc, char *argv[])
-{
-    int* A=new int[SIZE];
+int partition(int A[], int left, int right, int pivot) {
+    int pivotValue = A[pivot];
+    int storedIndex = left;
+    int tmp;
+
+    swap(A, pivot, right);
+
+    for (int i = left; i < right; i++) {
+        if (A[i] <= pivotValue) {
+            swap(A, i, storedIndex);
+            storedIndex++;
+        }
+    }
+    swap(A, storedIndex, right);
+    return storedIndex;
+}
+int quicksort(int A[], int left, int right, int pivot) {
+
+    if (left < right) {
+        pivot = partition(A, left, right, pivot);
+        quicksort(A, left, pivot - 1, left);
+        quicksort(A, pivot + 1, right, pivot + 1);
+
+    }
+    return 0;
+}
+
+int main(){
+    
+    int A[DIM];
 
     srand(time(NULL));
     
-    for(int i=0;i<SIZE;i++){
-        A[i]=rand()%100;
-        cout<<A[i]<<" ";    
-    }
-    
-    cout<<endl;
-    quicksort(A,0, SIZE-1, 0);
-    
-    for(int i=0;i<SIZE;i++){
-        cout<<A[i]<<" ";
-    }
+    carica(A, DIM);
+    print(A, DIM);
+    quicksort(A, 0, DIM-1, DIM/2);
+    print(A, DIM);
     
     system("PAUSE");
     return EXIT_SUCCESS;
